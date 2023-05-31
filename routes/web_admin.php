@@ -247,4 +247,5 @@ $prefix = 'perhitungan';
 Route::controller(PerhitunganController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
     $name = "$name.$prefix"; // admin.calon.perhitungan
     Route::get('/', 'index')->name($name)->middleware("permission:$name");
+    Route::post('/pengumuman', 'pengumuman')->name("$name.pengumuman")->middleware("permission:$name");
 });

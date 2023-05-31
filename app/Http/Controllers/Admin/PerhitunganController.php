@@ -26,4 +26,12 @@ class PerhitunganController extends Controller
 
         return view($view, $data);
     }
+
+    public function pengumuman(Request $request)
+    {
+        setting_set('spk.hitung.umumkan', !is_null($request->umumkan));
+        setting_set('spk.hitung.metode', $request->metode);
+
+        return response()->json();
+    }
 }

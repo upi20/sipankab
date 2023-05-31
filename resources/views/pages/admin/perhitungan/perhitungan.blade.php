@@ -34,6 +34,39 @@
         </a>
     @endif
 
+    <div class="card radius-10 border-start mt-4">
+        <div class="card-body">
+            <div class="d-flex align-items-center">
+                <div>
+                    <h6 class="my-1 text-info">Pengumuan</h6>
+                    <form action="" id="MainForm">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" name="umumkan" id="umumkan"
+                                {{ setting_get('spk.hitung.umumkan', false) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="umumkan">
+                                Umumkan Hasil Seleksi
+                            </label>
+                        </div>
+                        <h6 class="my-1 text-info">Metode yang digunakan</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="metode" id="metode-saw" value="saw"
+                                {{ setting_get('spk.hitung.metode', $metode) == 'saw' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="metode-saw">Simple additive weighting</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="metode" id="metode-wp" value="wp"
+                                {{ setting_get('spk.hitung.metode', $metode) == 'wp' ? 'checked' : '' }}>
+                            <label class="form-check-label" for="metode-wp">Weight product</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2" id="btn-save" form="MainForm">
+                            <li class="fas fa-save mr-1"></li> Simpan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card radius-10 border-start border-0 border-4 border-primary mt-4">
         <div class="card-body">
             <div class="d-flex align-items-center">
@@ -128,7 +161,53 @@
                 });
             });
 
+            $('#MainForm').submit(function(e) {
+                e.preventDefault();
+                resetErrorAfterInput();
+                var formData = new FormData(this);
+                setBtnLoading('#btn-save', 'Simpan');
+                $.ajax({
+                    type: "POST",
+                    url: "{{ route(h_prefix('pengumuman')) }}",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: formData,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: (data) => {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'Data berhasil disimpan',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
 
+                    },
+                    error: function(data) {
+                        const res = data.responseJSON ?? {};
+                        errorAfterInput = [];
+                        for (const property in res.errors) {
+                            errorAfterInput.push(property);
+                            setErrorAfterInput(res.errors[property], `#${property}`);
+                        }
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: res.message ?? 'Something went wrong',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    },
+                    complete: function() {
+                        setBtnLoading('#btn-save',
+                            '<li class="fas fa-save mr-1"></li> Simpan',
+                            false);
+                    }
+                });
+            });
         })
     </script>
 @endsection
