@@ -3,7 +3,8 @@
 @section('content')
     @if ($rumus)
         @php $params['hitung'] = 0; @endphp
-        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button" class="btn btn-outline-primary px-5">
+        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button"
+            class="btn btn-outline-primary px-5 mt-2">
             Sembunyikan Perhitungan
         </a>
     @else
@@ -11,7 +12,7 @@
             $params = request()->query();
             unset($params['hitung']);
         @endphp
-        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button" class="btn btn-primary px-5">
+        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button" class="btn btn-primary px-5 mt-2">
             Tampilkan Perhitungan
         </a>
     @endif
@@ -21,7 +22,8 @@
             $params = request()->query();
             unset($params['metode']);
         @endphp
-        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button" class="btn btn-outline-info px-5">
+        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button"
+            class="btn btn-outline-info px-5 mt-2">
             Hitung Dengan Metode SAW
         </a>
     @else
@@ -29,7 +31,8 @@
             $params = request()->query();
             $params['metode'] = 'wp';
         @endphp
-        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button" class="btn btn-outline-info px-5">
+        <a href="{{ route(h_prefix()) . url_params_generator($params) }}" type="button"
+            class="btn btn-outline-info px-5 mt-2">
             Hitung Dengan Metode WP
         </a>
     @endif

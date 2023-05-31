@@ -16,6 +16,9 @@
     $i = 0;
     $hitung = $perhitungan[$i];
     $i++;
+    if ($rumus) {
+        unset($pengumuman);
+    }
 @endphp
 @if ($rumus)
     <div class="card mt-3">
@@ -29,7 +32,11 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Alternatif</th>
+                        @if (isset($pengumuman))
+                            <th>Calon</th>
+                        @else
+                            <th>Alternatif</th>
+                        @endif
                         @foreach ($hitung['header'] as $header)
                             <th title="{{ $header['nama'] }}" data-toggle="tooltip">{{ $header['kode'] }}</th>
                         @endforeach
@@ -78,7 +85,11 @@
                     <tr>
 
                         <th>No</th>
-                        <th>Alternatif</th>
+                        @if (isset($pengumuman))
+                            <th>Calon</th>
+                        @else
+                            <th>Alternatif</th>
+                        @endif
                         @foreach ($hitung['header'] as $header)
                             <th title="{{ $header['nama'] }}" data-toggle="tooltip">{{ $header['kode'] }}</th>
                         @endforeach
@@ -121,7 +132,11 @@
                     <tr>
 
                         <th>No</th>
-                        <th>Alternatif</th>
+                        @if (isset($pengumuman))
+                            <th>Calon</th>
+                        @else
+                            <th>Alternatif</th>
+                        @endif
                         @foreach ($hitung['header'] as $header)
                             <th title="{{ $header['nama'] }}" data-toggle="tooltip">{{ $header['kode'] }}</th>
                         @endforeach
@@ -174,7 +189,15 @@
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Alternatif</th>
+                    @if (isset($pengumuman))
+                        <th>No. Pendaftaran</th>
+                    @endif
+
+                    @if (isset($pengumuman))
+                        <th>Calon</th>
+                    @else
+                        <th>Alternatif</th>
+                    @endif
                     @if ($rumus)
                         @foreach ($hitung['header'] as $header)
                             <th title="{{ $header['nama'] }}" data-toggle="tooltip">{{ $header['kode'] }}</th>
@@ -183,6 +206,9 @@
                     @else
                         <th>Nilai</th>
                     @endif
+                    @if (isset($pengumuman))
+                        <th>Status</th>
+                    @endif
                     <th>Rangking</th>
                 </tr>
             </thead>
@@ -190,6 +216,9 @@
                 @foreach ($hitung['body'] as $k => $body)
                     <tr>
                         <td>{{ $k + 1 }}</td>
+                        @if (isset($pengumuman))
+                            <td>{{ $body['nomor_pendaftaran'] }}</td>
+                        @endif
                         <td>{{ $body['nama'] }}</td>
                         @if ($rumus)
                             @foreach ($body['nilais'] as $nilai)
@@ -198,12 +227,24 @@
                                 </td>
                             @endforeach
                         @endif
-                        <td title="{{ $body['total_str'] }}" data-toggle="tooltip">
-                            {{ $body['total'] }}
-                        </td>
+
+                        @if (isset($pengumuman))
+                            <td title="{{ $body['total_str'] }} * 100" data-toggle="tooltip">
+                                {{ number_format((float) ($body['total'] * 100), 3, '.', '') }}
+                            </td>
+                        @else
+                            <td title="{{ $body['total_str'] }}" data-toggle="tooltip">
+                                {{ $body['total'] }}
+                            </td>
+                        @endif
+
                         @php
                             $status = $k + 1 > $kecamatan->jml_lulus ? 'bg-danger' : 'bg-success';
+                            $status_str = $k + 1 > $kecamatan->jml_lulus ? 'Tidak Lulus' : 'Lulus';
                         @endphp
+                        @if (isset($pengumuman))
+                            <td>{{ $status_str }}</td>
+                        @endif
                         <td class="{{ $status }} text-white">{{ $body['rank'] }}</td>
                     </tr>
                 @endforeach

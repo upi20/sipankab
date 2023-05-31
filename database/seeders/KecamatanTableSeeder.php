@@ -56,12 +56,12 @@ class KecamatanTableSeeder extends Seeder
             array (
                 'id' => 4,
                 'kode' => '320701',
-                'nama' => ' Ciamis',
+                'nama' => 'Ciamis',
                 'slug' => 'ciamis',
-                'jml_lulus' => 3,
+                'jml_lulus' => 20,
                 'import_id' => 1,
                 'created_at' => '2023-05-31 16:29:49',
-                'updated_at' => '2023-05-31 16:29:49',
+                'updated_at' => '2023-06-01 00:41:42',
             ),
             4 => 
             array (

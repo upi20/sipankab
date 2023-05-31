@@ -190,6 +190,168 @@ class LogsTableSeeder extends Seeder
                 'log_type' => 'edit',
                 'data' => '{"id":386,"parent_id":null,"title":"Logout","icon":"fas fa-sign-out-alt","route":"logout","sequence":20,"active":1,"type":1,"created_at":"2022-08-05 23:54:09","updated_at":"2023-05-31 17:17:43"}',
             ),
+            19 => 
+            array (
+                'id' => 20,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 00:41:42',
+                'table_name' => 'kecamatan',
+                'log_type' => 'edit',
+                'data' => '{"id":4,"kode":"320701","nama":" Ciamis","slug":"ciamis","jml_lulus":3,"import_id":1,"created_at":"2023-05-31 16:29:49","updated_at":"2023-05-31 16:29:49"}',
+            ),
+            20 => 
+            array (
+                'id' => 21,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:03:13',
+                'table_name' => 'setting_activities',
+                'log_type' => 'create',
+                'data' => '{"key":"setting.admin.spk.hitung.umumkan","value":0,"updated_at":"2023-05-31T18:03:13.000000Z","created_at":"2023-05-31T18:03:13.000000Z","id":1}',
+            ),
+            21 => 
+            array (
+                'id' => 22,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:03:13',
+                'table_name' => 'setting_activities',
+                'log_type' => 'create',
+                'data' => '{"key":"setting.admin.spk.hitung.metode","value":"saw","updated_at":"2023-05-31T18:03:13.000000Z","created_at":"2023-05-31T18:03:13.000000Z","id":2}',
+            ),
+            22 => 
+            array (
+                'id' => 23,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:03:46',
+                'table_name' => 'setting_activities',
+                'log_type' => 'create',
+                'data' => '{"key":"spk.hitung.umumkan","value":0,"updated_at":"2023-05-31T18:03:46.000000Z","created_at":"2023-05-31T18:03:46.000000Z","id":3}',
+            ),
+            23 => 
+            array (
+                'id' => 24,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:03:46',
+                'table_name' => 'setting_activities',
+                'log_type' => 'create',
+                'data' => '{"key":"spk.hitung.metode","value":"saw","updated_at":"2023-05-31T18:03:46.000000Z","created_at":"2023-05-31T18:03:46.000000Z","id":4}',
+            ),
+            24 => 
+            array (
+                'id' => 25,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:05:30',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":3,"key":"spk.hitung.umumkan","value":"0","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:03:46"}',
+            ),
+            25 => 
+            array (
+                'id' => 26,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:06:32',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":3,"key":"spk.hitung.umumkan","value":"1","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:05:30"}',
+            ),
+            26 => 
+            array (
+                'id' => 27,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:07:09',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":3,"key":"spk.hitung.umumkan","value":"0","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:06:32"}',
+            ),
+            27 => 
+            array (
+                'id' => 28,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:07:42',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":3,"key":"spk.hitung.umumkan","value":"1","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:07:09"}',
+            ),
+            28 => 
+            array (
+                'id' => 29,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:47:54',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":3,"key":"spk.hitung.umumkan","value":"0","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:07:42"}',
+            ),
+            29 => 
+            array (
+                'id' => 30,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 01:57:36',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":4,"key":"spk.hitung.metode","value":"saw","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:03:46"}',
+            ),
+            30 => 
+            array (
+                'id' => 31,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 02:02:07',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":3,"key":"spk.hitung.umumkan","value":"1","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:47:54"}',
+            ),
+            31 => 
+            array (
+                'id' => 32,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 02:02:19',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":3,"key":"spk.hitung.umumkan","value":"0","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 02:02:07"}',
+            ),
+            32 => 
+            array (
+                'id' => 33,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 02:18:28',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":4,"key":"spk.hitung.metode","value":"wp","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 01:57:36"}',
+            ),
+            33 => 
+            array (
+                'id' => 34,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 02:35:00',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":4,"key":"spk.hitung.metode","value":"saw","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 02:18:28"}',
+            ),
+            34 => 
+            array (
+                'id' => 35,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 02:40:55',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":4,"key":"spk.hitung.metode","value":"wp","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 02:35:00"}',
+            ),
+            35 => 
+            array (
+                'id' => 36,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 02:43:37',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":4,"key":"spk.hitung.metode","value":"saw","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 02:40:55"}',
+            ),
+            36 => 
+            array (
+                'id' => 37,
+                'user_id' => 1,
+                'log_date' => '2023-06-01 02:47:36',
+                'table_name' => 'setting_activities',
+                'log_type' => 'edit',
+                'data' => '{"id":4,"key":"spk.hitung.metode","value":"wp","created_at":"2023-06-01 01:03:46","updated_at":"2023-06-01 02:43:37"}',
+            ),
         ));
         
         
