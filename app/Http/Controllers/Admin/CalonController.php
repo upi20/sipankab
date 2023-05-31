@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Calon;
+use App\Models\Import\Calon as ImportCalon;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use League\Config\Exception\ValidationException;
@@ -98,5 +99,10 @@ class CalonController extends Controller
     public function find(Request $request)
     {
         return Calon::findOrFail($request->id);
+    }
+
+    public function export(Request $request)
+    {
+        return ImportCalon::export($request);
     }
 }

@@ -22,11 +22,12 @@ class TahapanTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-            'nama' => 'Seleksi Tahap Awal  (Administrasi)',
+            'nama' => 'Seleksi Tahap Awal (Administrasi)',
                 'kode' => 'B1',
                 'bobot' => 35.0,
-                'created_at' => '2023-05-23 20:25:08',
-                'updated_at' => '2023-05-23 20:25:08',
+                'import_id' => 1,
+                'created_at' => '2023-05-31 16:51:56',
+                'updated_at' => '2023-05-31 16:51:56',
             ),
             1 => 
             array (
@@ -34,17 +35,19 @@ class TahapanTableSeeder extends Seeder
             'nama' => 'Seleksi Computer Assisted Test (Tahapan test tulis)',
                 'kode' => 'B2',
                 'bobot' => 35.0,
-                'created_at' => '2023-05-23 20:25:22',
-                'updated_at' => '2023-05-23 20:25:22',
+                'import_id' => 1,
+                'created_at' => '2023-05-31 16:51:56',
+                'updated_at' => '2023-05-31 16:51:56',
             ),
             2 => 
             array (
                 'id' => 3,
-            'nama' => 'Seleksi  Test Wawancara (tahapan terakhir)',
+            'nama' => 'Seleksi Test Wawancara (tahapan terakhir)',
                 'kode' => 'B3',
                 'bobot' => 30.0,
-                'created_at' => '2023-05-23 20:25:35',
-                'updated_at' => '2023-05-23 20:25:35',
+                'import_id' => 1,
+                'created_at' => '2023-05-31 16:51:56',
+                'updated_at' => '2023-05-31 16:51:56',
             ),
         ));
         

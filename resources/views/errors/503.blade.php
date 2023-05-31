@@ -1,4 +1,4 @@
-@extends('layouts.frontend.master')
+@extends('layouts.admin.master')
 @section('content')
     <div class="faq__area pt-120 pb-120">
         <div class="container text-center">
@@ -19,5 +19,5 @@
     503 |
 @endsection
 @section('javascript')
-    {!! resource_loader(blade_path: 'pages.frontend.frontend', render: true) !!}
+    {!! resource_loader(blade_path: 'pages.admin.admin', render: true) !!}
 @endsection

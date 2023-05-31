@@ -32,7 +32,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
-        Artikel::clearCache();
+
 
         try {
             $request->validate([
@@ -62,7 +62,7 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        Artikel::clearCache();
+
 
         try {
             $user = User::find($request->id);
@@ -96,7 +96,7 @@ class UserController extends Controller
 
     public function delete(Request $user)
     {
-        Artikel::clearCache();
+
 
         try {
             $user = User::find($user->id);

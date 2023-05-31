@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Import\Kecamatan as ImportKecamatan;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use League\Config\Exception\ValidationException;
@@ -86,5 +87,10 @@ class KecamatanController extends Controller
     public function find(Request $request)
     {
         return Kecamatan::findOrFail($request->id);
+    }
+
+    public function export(Request $request)
+    {
+        return ImportKecamatan::export($request);
     }
 }

@@ -12,14 +12,18 @@
                 <div>
                     <h6 class="mt-2 text-uppercase">Data {{ $page_attr['title'] }}</h6>
                 </div>
-                @if ($can_insert)
-                    <div>
+                <div>
+                    <a href="{{ route(h_prefix('export')) }}" class="btn btn-success btn-primary btn-sm" data-toggle="tooltip"
+                        title="Export Semua Data">
+                        <i class="fas fa-upload"></i> Export
+                    </a>
+                    @if ($can_insert)
                         <button type="button" class="btn btn-rounded btn-primary btn-sm" data-bs-effect="effect-scale"
                             data-bs-toggle="modal" href="#modal-default" onclick="addFunc()" data-target="#modal-default">
                             <i class="fas fa-plus"></i> Tambah
                         </button>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
             <hr class="mt-1 mb-0" />
             <div class="accordion accordion-flush" id="accordionOption">

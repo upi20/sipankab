@@ -121,4 +121,140 @@ class Kecamatan extends Model
         // create datatable
         return $datatable->make(true);
     }
+
+    public function calons()
+    {
+        return $this->hasMany(Calon::class, 'kecamatan_id', 'id');
+    }
+
+    public function saw()
+    {
+        $request = new Request(['kecamatan_id' => $this->id]);
+
+        $t_calon = Calon::tableName;
+        $t_an = CalonNilai::tableName;
+
+        // 1. Membuat matriks keputusan
+        $hitung = CalonNilai::datatable($request);
+
+        // mengubah nilai mix menjadi array
+        $hitung = json_encode($hitung);
+        $hitung = json_decode($hitung, true);
+
+        // 1.1. Mengambil nilai max dari tiap2 tahapan
+        $hitung['maxs'] = [];
+        foreach ($hitung['header'] as $header) {
+            $hitung['maxs'][] = CalonNilai::join($t_calon, "$t_calon.id", '=', "$t_an.calon_id")
+                ->where('tahapan_id', $header['id'])
+                ->where("$t_calon.kecamatan_id", $this->id)->max("$t_an.nilai");
+        }
+        $step[0] = $hitung;
+
+        // 2. Dibagi nilai tertinggi
+        for ($i = 0; $i < count($hitung['body']); $i++) {
+            for ($j = 0; $j < count($hitung['body'][$i]['nilais']); $j++) {
+                if ($hitung['body'][$i]['nilais'][$j] != null) {
+                    if ($hitung['maxs'][$j]) { // pastikan max ada
+                        $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $hitung['body'][$i]['nilais'][$j]['nilai'] . " / " . $hitung['maxs'][$j];
+                        $hitung['body'][$i]['nilais'][$j]['nilai'] /= $hitung['maxs'][$j];
+                    } else { // jika tidak jadikan 0 saja
+                        $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $hitung['body'][$i]['nilais'][$j]['nilai'] . " / " . 0;
+                        $hitung['body'][$i]['nilais'][$j]['nilai'] = 0;
+                    }
+                }
+            }
+        }
+        $step[1] = $hitung;
+
+        // 3. Dikali bobot tahapan
+        for ($i = 0; $i < count($hitung['body']); $i++) {
+            $total = 0;
+            $total_str = "";
+            for ($j = 0; $j < count($hitung['body'][$i]['nilais']); $j++) {
+                if ($hitung['body'][$i]['nilais'][$j] != null) {
+                    $bobot = $hitung['body'][$i]['nilais'][$j]['tahapan']['bobot'] / 100;
+
+                    $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $hitung['body'][$i]['nilais'][$j]['nilai'] . " * " . $bobot;
+                    $hitung['body'][$i]['nilais'][$j]['nilai'] *= $bobot;
+
+                    $total += $hitung['body'][$i]['nilais'][$j]['nilai'];
+                    $total_str .= (($total_str == "" ? "" : " + ") . $hitung['body'][$i]['nilais'][$j]['nilai']);
+                }
+            }
+
+            $hitung['body'][$i]['total'] = $total;
+            $hitung['body'][$i]['total_str'] = $total_str;
+        }
+        $step[2] = $hitung;
+
+        // 4. sortir by rank
+        $collects = collect($hitung['body'])->sortByDesc('total')->values()->all();
+        $hitung['body'] = [];
+        foreach ($collects as $k => $v) {
+            $v['rank'] = $k + 1;
+            $hitung['body'][] = $v;
+        }
+
+        $step[3] = $hitung;
+        // dd($step);
+        return $step;
+    }
+
+    public function wp()
+    {
+        $request = new Request(['kecamatan_id' => $this->id]);
+
+        // 1. Membuat matriks keputusan
+        $hitung = CalonNilai::datatable($request);
+        // mengubah nilai mix menjadi array
+        $hitung = json_encode($hitung);
+        $hitung = json_decode($hitung, true);
+        $step[0] = $hitung;
+
+        // 2. Nilai asli tahapan di pangkat bobot tahapan
+        $total = 0;
+        for ($i = 0; $i < count($hitung['body']); $i++) {
+            $jumlah = 0;
+            $jumlah_str = "";
+            for ($j = 0; $j < count($hitung['body'][$i]['nilais']); $j++) {
+                if ($hitung['body'][$i]['nilais'][$j] != null) {
+                    $bobot = $hitung['body'][$i]['nilais'][$j]['tahapan']['bobot'] / 100;
+                    $nilai = $hitung['body'][$i]['nilais'][$j]['nilai'];
+                    $pangkat = pow($nilai, $bobot);
+                    $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $nilai . " ^ " . $bobot;
+                    $hitung['body'][$i]['nilais'][$j]['nilai'] = $pangkat;
+
+
+                    $jumlah_str .= (($jumlah_str == "" ? "" : " * ") . $pangkat);
+                    $jumlah = $jumlah == 0 ? $pangkat : $jumlah * $pangkat;
+                }
+            }
+
+            $hitung['body'][$i]['jumlah'] = $jumlah;
+            $hitung['body'][$i]['jumlah_str'] = $jumlah_str;
+            $total += $jumlah;
+        }
+        $hitung['total'] = $total;
+        $step[1] = $hitung;
+
+        // 3. Nilai vektor s per nomor peserta  dibagi  Jumlah seluruh nilai vektor S
+        $total = $hitung['total'];
+        for ($i = 0; $i < count($hitung['body']); $i++) {
+            $jumlah = $hitung['body'][$i]['jumlah'];
+            $hitung['body'][$i]['jumlah'] = $jumlah / $total;
+            $hitung['body'][$i]['jumlah_str'] = $jumlah . ' / ' . $total;
+        }
+        $step[2] = $hitung;
+
+        // 4. sortir by rank
+        $collects = collect($hitung['body'])->sortByDesc('jumlah')->values()->all();
+        $hitung['body'] = [];
+        foreach ($collects as $k => $v) {
+            $v['rank'] = $k + 1;
+            $hitung['body'][] = $v;
+        }
+
+        $step[3] = $hitung;
+        return $step;
+    }
 }

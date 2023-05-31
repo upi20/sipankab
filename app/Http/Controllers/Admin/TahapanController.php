@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Import\Tahapan as ImportTahapan;
 use App\Models\Tahapan;
 use Illuminate\Http\Request;
 use League\Config\Exception\ValidationException;
@@ -86,5 +87,10 @@ class TahapanController extends Controller
     public function find(Request $request)
     {
         return Tahapan::findOrFail($request->id);
+    }
+
+    public function export(Request $request)
+    {
+        return ImportTahapan::export($request);
     }
 }

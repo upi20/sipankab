@@ -383,4 +383,174 @@ class Kecamatan extends Model
         exit;
         die;
     }
+
+    public static function export(Request $request)
+    {
+        // data body
+        $details = ModelsKecamatan::orderBy('kode')->get();
+        $bulan_array = [
+            1 => 'Januari',
+            2 => 'February',
+            3 => 'Maret',
+            4 => 'April',
+            5 => 'Mei',
+            6 => 'Juni',
+            7 => 'Juli',
+            8 => 'Agustus',
+            9 => 'September',
+            10 => 'Oktober',
+            11 => 'November',
+            12 => 'Desember',
+        ];
+        $today_m = (int)Date("m");
+        $today_d = (int)Date("d");
+        $today_y = (int)Date("Y");
+
+        $date = $today_d . " " . $bulan_array[$today_m] . " " . $today_y;
+
+        // poin-poin header disini
+        $headers = [
+            'No',
+            'Kode',
+            'Nama',
+            'Jumlah Lulus',
+        ];
+
+        // laporan baru
+        $row = 1;
+        $col_start = "A";
+        $col_end = chr(64 + count($headers));
+        $title_excel = "Export Semua Data Kecamatan";
+        // Header excel ================================================================================================
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Dokumen Properti
+        $spreadsheet->getProperties()
+            ->setCreator("Administrator")
+            ->setLastModifiedBy("Administrator")
+            ->setTitle($title_excel)
+            ->setSubject("Administrator")
+            ->setDescription("LIst Company $date")
+            ->setKeywords("Laporan, Report")
+            ->setCategory("Laporan, Report");
+
+        // set default font
+        $spreadsheet->getDefaultStyle()->getFont()->setName('Calibri');
+        $spreadsheet->getDefaultStyle()->getFont()->setSize(11);
+
+        // header 2 ====================================================================================================
+        $row += 1;
+        $sheet->mergeCells($col_start . $row . ":" . $col_end . $row)
+            ->setCellValue("A$row", "Export Semua Data Kecamatan");
+        $sheet->getStyle($col_start . $row . ":" . $col_end . $row)->applyFromArray([
+            "font" => [
+                "bold" => true,
+                "size" => 13
+            ],
+            "alignment" => [
+                "horizontal" => Alignment::HORIZONTAL_CENTER,
+            ],
+        ]);
+
+        // Tabel =======================================================================================================
+        // Tabel Header
+        $row += 2;
+        $styleArray = [
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_CENTER,
+            ],
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                ],
+            ],
+            'fill' => [
+                'fillType' => Fill::FILL_SOLID,
+                'startColor' => [
+                    'rgb' => '93C5FD',
+                ]
+            ],
+        ];
+        $sheet->getStyle($col_start . $row . ":" . $col_end . $row)->applyFromArray($styleArray);
+        $row++;
+        $styleArray['fill']['startColor']['rgb'] = 'E5E7EB';
+        $sheet->getStyle($col_start . $row . ":" . $col_end . $row)->applyFromArray($styleArray);
+
+        // apply header
+        for ($i = 0; $i < count($headers); $i++) {
+            $sheet->setCellValue(chr(65 + $i) . ($row - 1), $headers[$i]);
+            $sheet->setCellValue(chr(65 + $i) . $row, ($i + 1));
+        }
+
+        // tabel body
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            ],
+            "alignment" => [
+                'wrapText' => TRUE,
+                'vertical' => Alignment::VERTICAL_TOP
+            ]
+        ];
+        $start_tabel = $row + 1;
+        foreach ($details as $detail) {
+            $c = 0;
+            $row++;
+            $detail = (object)$detail;
+            $sheet->setCellValue(chr(65 + $c) . "$row", ($row - 5));
+            $sheet->setCellValue(chr(65 + ++$c) . "$row", $detail->kode);
+            $sheet->setCellValue(chr(65 + ++$c) . "$row", $detail->nama);
+            $sheet->setCellValue(chr(65 + ++$c) . "$row", $detail->jml_lulus);
+        }
+
+        // format
+        // nomor center
+        $sheet->getStyle($col_start . $start_tabel . ":" . $col_start . $row)
+            ->getAlignment()
+            ->setHorizontal(Alignment::HORIZONTAL_CENTER);
+        // border all data
+        $sheet->getStyle($col_start . $start_tabel . ":" . $col_end . $row)
+            ->applyFromArray($styleArray);
+
+        $spreadsheet->getActiveSheet()->getStyle('B' . $start_tabel . ":B" . $row)->getNumberFormat()
+            ->setFormatCode('0');
+
+        // set width column
+        for ($i = 65; $i < (65 + count($headers)); $i++) {
+            $spreadsheet->getActiveSheet()->getColumnDimension(chr($i))->setAutoSize(true);
+        }
+
+        // set  printing area
+        $spreadsheet->getActiveSheet()->getPageSetup()->setPrintArea($col_start . '1:' . $col_end . $row);
+        $spreadsheet->getActiveSheet()->getPageSetup()
+            ->setOrientation(PageSetup::ORIENTATION_PORTRAIT);
+        $spreadsheet->getActiveSheet()->getPageSetup()
+            ->setPaperSize(PageSetup::PAPERSIZE_A4);
+
+        // margin
+        $spreadsheet->getActiveSheet()->getPageMargins()->setTop(1);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setRight(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setLeft(0);
+        $spreadsheet->getActiveSheet()->getPageMargins()->setBottom(0);
+
+        // page center on
+        $spreadsheet->getActiveSheet()->getPageSetup()->setHorizontalCentered(true);
+        $spreadsheet->getActiveSheet()->getPageSetup()->setVerticalCentered(false);
+
+        // simpan langsung
+        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        header('Content-Disposition: attachment;filename="' . $title_excel . '.xlsx"');
+        header('Cache-Control: max-age=0');
+        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $writer->save('php://output');
+        exit;
+        die;
+    }
 }

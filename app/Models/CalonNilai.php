@@ -34,7 +34,12 @@ class CalonNilai extends Model
     public static function datatable(Request $request)
     {
         $tahapans = Tahapan::orderBy('kode')->get();
-        $alternatifs = Calon::with(['kecamatan', 'nilais.tahapan'])->get();
+        $model = Calon::with(['kecamatan', 'nilais.tahapan']);
+
+        if ($request->kecamatan_id != null) {
+            $model->where('kecamatan_id', '=', $request->kecamatan_id);
+        }
+        $alternatifs = $model->get();
 
         // sort nilai berdasarkan tahapan
         $results = [];

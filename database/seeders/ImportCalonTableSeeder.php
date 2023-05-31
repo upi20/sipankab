@@ -21,13 +21,13 @@ class ImportCalonTableSeeder extends Seeder
         \DB::table('import_calon')->insert(array (
             0 => 
             array (
-                'id' => 16,
-                'nama' => 'Testing',
-                'slug' => 'testing',
-                'file' => '20230529031753-testing.xlsx',
+                'id' => 1,
+                'nama' => 'Calon Testing',
+                'slug' => 'calon-testing',
+                'file' => '20230531045244-calon-testing.xlsx',
                 'count' => 270,
-                'created_at' => '2023-05-29 03:17:53',
-                'updated_at' => '2023-05-29 03:17:58',
+                'created_at' => '2023-05-31 16:52:44',
+                'updated_at' => '2023-05-31 16:52:50',
             ),
         ));
         

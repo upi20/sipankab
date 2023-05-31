@@ -10,7 +10,7 @@
                             <h6 class="mt-2 text-uppercase">Application</h6>
                         </div>
                         <div class="form-check form-switch">
-                            <input class="form-check-input" name="visible" form="app-form" type="checkbox"
+                            <input class="form-check-input" name="preloader" form="app-form" type="checkbox"
                                 id="app-settingPreloader" {{ setting_get(set_admin('app.preloader')) ? 'checked' : '' }}>
                             <label class="form-check-label" for="app-settingPreloader">
                                 Preloader

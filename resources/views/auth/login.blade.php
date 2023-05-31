@@ -157,13 +157,6 @@ $page_attr_title = ($page_attr->title == '' ? '' : $page_attr->title . ' | ') . 
                                                     <button type="submit" class="btn btn-primary">Masuk</button>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
-                                                <div class="text-center ">
-                                                    <p class="mb-0">Kembali
-                                                        <a href="{{ url('/') }}">Ke halaman utama</a>
-                                                    </p>
-                                                </div>
-                                            </div>
                                         </form>
                                     </div>
                                 </div>
