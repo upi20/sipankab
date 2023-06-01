@@ -6,6 +6,7 @@ use App\Models\Calon as ModelsCalon;
 use App\Models\CalonNilai;
 use App\Models\Kecamatan;
 use App\Models\Tahapan;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Haruncpi\LaravelUserActivity\Traits\Loggable;
@@ -245,15 +246,24 @@ class Calon extends Model
                 $tanggal_lahir = "$tle[2]-$tle[0]-$tle[1]";
             }
 
-            $calon = new ModelsCalon();
-            $calon->kecamatan_id = $kec_id[$kode];
-            $calon->nomor_pendaftaran = $nomor_pendaftaran;
-            $calon->nama = $v[4];
-            $calon->jenis_kelamin = $v[5];
-            $calon->tanggal_lahir = $tanggal_lahir;
-            $calon->nomor_telepon = $v[7];
-            $calon->import_id = $model->id;
-            $calon->save();
+            try {
+                $calon = new ModelsCalon();
+                $calon->kecamatan_id = $kec_id[$kode];
+                $calon->nomor_pendaftaran = $nomor_pendaftaran;
+                $calon->nama = $v[4];
+                $calon->jenis_kelamin = $v[5];
+                $calon->tanggal_lahir = $tanggal_lahir;
+                $calon->nomor_telepon = $v[7];
+                $calon->import_id = $model->id;
+                $calon->save();
+            } catch (\Throwable $th) {
+                return [
+                    'status' => false,
+                    'error' => response()->json(['message' => "Pastikan data anda benar, Silahkan cek data nomor {$v[0]}", 'error' => $v], 400),
+                    'excel' => $file_excel
+                ];
+            }
+
 
             // insert tahapan
             for ($i = $tahapan_start; $i < $tahapan_end; $i++) {
