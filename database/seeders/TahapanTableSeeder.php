@@ -21,33 +21,33 @@ class TahapanTableSeeder extends Seeder
         \DB::table('tahapan')->insert(array (
             0 => 
             array (
-                'id' => 1,
+                'id' => '5',
             'nama' => 'Seleksi Tahap Awal (Administrasi)',
                 'kode' => 'B1',
-                'bobot' => 35.0,
-                'import_id' => 1,
-                'created_at' => '2023-05-31 16:51:56',
-                'updated_at' => '2023-05-31 16:51:56',
+                'bobot' => '35',
+                'import_id' => '2',
+                'created_at' => '2023-06-01 15:30:32',
+                'updated_at' => '2023-06-01 15:30:32',
             ),
             1 => 
             array (
-                'id' => 2,
+                'id' => '6',
             'nama' => 'Seleksi Computer Assisted Test (Tahapan test tulis)',
                 'kode' => 'B2',
-                'bobot' => 35.0,
-                'import_id' => 1,
-                'created_at' => '2023-05-31 16:51:56',
-                'updated_at' => '2023-05-31 16:51:56',
+                'bobot' => '35',
+                'import_id' => '2',
+                'created_at' => '2023-06-01 15:30:32',
+                'updated_at' => '2023-06-01 15:30:32',
             ),
             2 => 
             array (
-                'id' => 3,
+                'id' => '7',
             'nama' => 'Seleksi Test Wawancara (tahapan terakhir)',
                 'kode' => 'B3',
-                'bobot' => 30.0,
-                'import_id' => 1,
-                'created_at' => '2023-05-31 16:51:56',
-                'updated_at' => '2023-05-31 16:51:56',
+                'bobot' => '30',
+                'import_id' => '2',
+                'created_at' => '2023-06-01 15:30:32',
+                'updated_at' => '2023-06-01 15:30:32',
             ),
         ));
         
