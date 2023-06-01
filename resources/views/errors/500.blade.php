@@ -1,4 +1,4 @@
-@extends('layouts.admin.master')
+@extends('layouts.frontend')
 @section('content')
     <div class="faq__area pt-120 pb-120">
         <div class="container text-center">

@@ -125,7 +125,7 @@
                                 required="" />
                         </div>
                         <div class="form-group">
-                            <label class="form-label mb-1" for="jenis_kelamin">Kecamatan
+                            <label class="form-label mb-1" for="jenis_kelamin">Jenis Kelamin
                                 <span class="text-danger">*</span>
                             </label>
                             <select class="form-control" name="jenis_kelamin" id="jenis_kelamin" required>
