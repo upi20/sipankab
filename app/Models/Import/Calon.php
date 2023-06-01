@@ -605,7 +605,7 @@ class Calon extends Model
         $row = 1;
         $col_start = "A";
         $col_end = chr(64 + count($headers));
-        $title_excel = "Export Calon";
+        $title_excel = "Export Data Calon";
         // Header excel ================================================================================================
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
@@ -627,7 +627,7 @@ class Calon extends Model
         // header 2 ====================================================================================================
         $row += 1;
         $sheet->mergeCells($col_start . $row . ":" . $col_end . $row)
-            ->setCellValue("A$row", "Export Calon");
+            ->setCellValue("A$row", "Export Data Calon");
         $sheet->getStyle($col_start . $row . ":" . $col_end . $row)->applyFromArray([
             "font" => [
                 "bold" => true,
