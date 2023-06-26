@@ -152,39 +152,67 @@ class Kecamatan extends Model
 
         // 2. Dibagi nilai tertinggi
         for ($i = 0; $i < count($hitung['body']); $i++) {
+            $nilai_total = 0;
+            $nilai_total_str = "";
             for ($j = 0; $j < count($hitung['body'][$i]['nilais']); $j++) {
                 if ($hitung['body'][$i]['nilais'][$j] != null) {
+                    $nilai = $hitung['body'][$i]['nilais'][$j]['nilai'];
+                    $nilai_str = '';
+
+                    // sebelum di jumlahkan catat dulu untuk deviasi
+                    $nilai_total_str .= (($nilai_total_str == "" ? "" : " + ") . $nilai);
+                    $nilai_total += $nilai;
+
+                    // bagi dengan nilai tertinggi
                     if ($hitung['maxs'][$j]) { // pastikan max ada
-                        $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $hitung['body'][$i]['nilais'][$j]['nilai'] . " / " . $hitung['maxs'][$j];
-                        $hitung['body'][$i]['nilais'][$j]['nilai'] /= $hitung['maxs'][$j];
+                        $nilai_str = $nilai . " / " . $hitung['maxs'][$j];
+                        $nilai /= $hitung['maxs'][$j];
                     } else { // jika tidak jadikan 0 saja
-                        $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $hitung['body'][$i]['nilais'][$j]['nilai'] . " / " . 0;
-                        $hitung['body'][$i]['nilais'][$j]['nilai'] = 0;
+                        $nilai_str = $nilai . " / " . 0;
+                        $nilai = 0;
                     }
+                    $hitung['body'][$i]['nilais'][$j]['nilai'] = $nilai;
+                    $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $nilai_str;
                 }
             }
+            $hitung['body'][$i]['nilai_total'] = $nilai_total;
+            $hitung['body'][$i]['nilai_total_str'] = $nilai_total_str;
         }
         $step[1] = $hitung;
 
         // 3. Dikali bobot tahapan
+        $total_deviasi = 0;
         for ($i = 0; $i < count($hitung['body']); $i++) {
             $total = 0;
             $total_str = "";
             for ($j = 0; $j < count($hitung['body'][$i]['nilais']); $j++) {
                 if ($hitung['body'][$i]['nilais'][$j] != null) {
+                    $nilai = $hitung['body'][$i]['nilais'][$j]['nilai'];
                     $bobot = $hitung['body'][$i]['nilais'][$j]['tahapan']['bobot'] / 100;
 
-                    $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $hitung['body'][$i]['nilais'][$j]['nilai'] . " * " . $bobot;
-                    $hitung['body'][$i]['nilais'][$j]['nilai'] *= $bobot;
+                    $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $nilai . " * " . $bobot;
+                    $nilai *= $bobot;
 
-                    $total += $hitung['body'][$i]['nilais'][$j]['nilai'];
-                    $total_str .= (($total_str == "" ? "" : " + ") . $hitung['body'][$i]['nilais'][$j]['nilai']);
+                    $total += $nilai;
+                    $total_str .= (($total_str == "" ? "" : " + ") . $nilai);
+
+                    $hitung['body'][$i]['nilais'][$j]['nilai'] = $nilai;
                 }
             }
 
             $hitung['body'][$i]['total'] = $total;
             $hitung['body'][$i]['total_str'] = $total_str;
+
+            // hitung deviasi
+            $S = $total;
+            $total = $hitung['body'][$i]['nilai_total'];
+            $hitung['body'][$i]['nilai_total_str'] = "($total - $S) ^ 2";
+
+            $deviasi = ($total - $S) ^ 2;
+            $hitung['body'][$i]['nilai_total'] = $deviasi;
+            $total_deviasi += $deviasi;
         }
+        $hitung['total_deviasi'] = $total_deviasi;
         $step[2] = $hitung;
 
         // 4. sortir by rank
@@ -196,7 +224,6 @@ class Kecamatan extends Model
         }
 
         $step[3] = $hitung;
-        // dd($step);
         return $step;
     }
 
@@ -216,6 +243,8 @@ class Kecamatan extends Model
         for ($i = 0; $i < count($hitung['body']); $i++) {
             $jumlah = 0;
             $jumlah_str = "";
+            $nilai_total = 0;
+            $nilai_total_str = "";
             for ($j = 0; $j < count($hitung['body'][$i]['nilais']); $j++) {
                 if ($hitung['body'][$i]['nilais'][$j] != null) {
                     $bobot = $hitung['body'][$i]['nilais'][$j]['tahapan']['bobot'] / 100;
@@ -224,14 +253,21 @@ class Kecamatan extends Model
                     $hitung['body'][$i]['nilais'][$j]['nilai_str'] = $nilai . " ^ " . $bobot;
                     $hitung['body'][$i]['nilais'][$j]['nilai'] = $pangkat;
 
-
+                    // jumlah
                     $jumlah_str .= (($jumlah_str == "" ? "" : " * ") . $pangkat);
-                    $jumlah = $jumlah == 0 ? $pangkat : $jumlah * $pangkat;
+                    $jumlah = ($jumlah == 0) ? $pangkat : ($jumlah * $pangkat);
+
+                    // total
+                    $nilai_total_str .= (($nilai_total_str == "" ? "" : " + ") . $nilai);
+                    $nilai_total += $nilai;
                 }
             }
 
             $hitung['body'][$i]['jumlah'] = $jumlah;
             $hitung['body'][$i]['jumlah_str'] = $jumlah_str;
+
+            $hitung['body'][$i]['nilai_total'] = $nilai_total;
+            $hitung['body'][$i]['nilai_total_str'] = $nilai_total_str;
             $total += $jumlah;
         }
         $hitung['total'] = $total;
@@ -239,11 +275,22 @@ class Kecamatan extends Model
 
         // 3. Nilai vektor s per nomor peserta  dibagi  Jumlah seluruh nilai vektor S
         $total = $hitung['total'];
+        $total_deviasi = 0;
         for ($i = 0; $i < count($hitung['body']); $i++) {
             $jumlah = $hitung['body'][$i]['jumlah'];
             $hitung['body'][$i]['jumlah'] = $jumlah / $total;
             $hitung['body'][$i]['jumlah_str'] = $jumlah . ' / ' . $total;
+
+            // deviasi
+            $S = $hitung['body'][$i]['jumlah'];
+            $total = $hitung['body'][$i]['nilai_total'];
+            $hitung['body'][$i]['nilai_total_str'] = "($total - $S) ^ 2";
+
+            $deviasi = ($total - $S) ^ 2;
+            $hitung['body'][$i]['nilai_total'] = $deviasi;
+            $total_deviasi += $deviasi;
         }
+        $hitung['total_deviasi'] = $total_deviasi;
         $step[2] = $hitung;
 
         // 4. sortir by rank

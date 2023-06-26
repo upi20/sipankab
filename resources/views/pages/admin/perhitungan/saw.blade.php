@@ -12,7 +12,8 @@
 @endif
 
 @php
-    $perhitungan = $kecamatan->saw();
+    $perbandingan = isset($perbandingan);
+    $perhitungan = $perbandingan ? $kecamatan->saw : $kecamatan->saw();
     $i = 0;
     $hitung = $perhitungan[$i];
     $i++;
@@ -40,6 +41,9 @@
                         @foreach ($hitung['header'] as $header)
                             <th title="{{ $header['nama'] }}" data-toggle="tooltip">{{ $header['kode'] }}</th>
                         @endforeach
+                        @if ($perbandingan)
+                            <th>Total</th>
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +54,11 @@
                             @foreach ($body['nilais'] as $nilai)
                                 <td>{{ $nilai ? $nilai['nilai'] : '' }}</td>
                             @endforeach
+                            @if ($perbandingan)
+                                <td title="{{ $perhitungan[$i]['body'][$k]['nilai_total_str'] }}" data-toggle="tooltip">
+                                    {{ $perhitungan[$i]['body'][$k]['nilai_total'] }}
+                                </td>
+                            @endif
                         </tr>
                     @endforeach
                 </tbody>
@@ -60,6 +69,7 @@
                         @foreach ($hitung['maxs'] as $max)
                             <th>{{ $max }}</th>
                         @endforeach
+                        <th></th>
                     </tr>
                 </tfoot>
             </table>
@@ -177,6 +187,9 @@
                     <h6 class="mt-2 text-uppercase">{{ $kecamatan->kode }} | {{ $kecamatan->nama }}</h6>
                     <small>Jumlah Lulus: {{ $kecamatan->jml_lulus }} Orang</small>
                 @endif
+                @if ($perbandingan)
+                    <br>Total Deviasi: <b>{{ $hitung['total_deviasi'] }}</b>
+                @endif
             </div>
             <div>
                 <span>
@@ -210,6 +223,9 @@
                         <th>Status</th>
                     @endif
                     <th>Rangking</th>
+                    @if ($perbandingan)
+                        <th>Deviasi</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -246,6 +262,11 @@
                             <td>{{ $status_str }}</td>
                         @endif
                         <td class="{{ $status }} text-white">{{ $body['rank'] }}</td>
+                        @if ($perbandingan)
+                            <td title="{{ $body['nilai_total_str'] }}" data-toggle="tooltip">
+                                {{ $body['nilai_total'] }}
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </tbody>

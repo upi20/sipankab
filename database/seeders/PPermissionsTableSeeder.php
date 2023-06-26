@@ -21,7 +21,7 @@ class PPermissionsTableSeeder extends Seeder
         \DB::table('p_permissions')->insert(array (
             0 => 
             array (
-                'id' => '1',
+                'id' => 1,
                 'name' => 'admin.dashboard',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -29,7 +29,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'id' => '2',
+                'id' => 2,
                 'name' => 'admin.user',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -37,7 +37,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             2 => 
             array (
-                'id' => '5',
+                'id' => 5,
                 'name' => 'admin.user.delete',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -45,7 +45,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => '7',
+                'id' => 7,
                 'name' => 'admin.user.update',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -53,7 +53,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             4 => 
             array (
-                'id' => '18',
+                'id' => 18,
                 'name' => 'admin.menu.admin',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -61,7 +61,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             5 => 
             array (
-                'id' => '20',
+                'id' => 20,
                 'name' => 'admin.menu.admin.insert',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -69,7 +69,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             6 => 
             array (
-                'id' => '21',
+                'id' => 21,
                 'name' => 'admin.menu.admin.update',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -77,7 +77,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             7 => 
             array (
-                'id' => '22',
+                'id' => 22,
                 'name' => 'admin.menu.admin.delete',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -85,7 +85,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             8 => 
             array (
-                'id' => '33',
+                'id' => 33,
                 'name' => 'admin.setting.dashboard',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -93,7 +93,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             9 => 
             array (
-                'id' => '35',
+                'id' => 35,
                 'name' => 'admin.profile',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -101,7 +101,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             10 => 
             array (
-                'id' => '36',
+                'id' => 36,
                 'name' => 'admin.profile.save',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -109,7 +109,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             11 => 
             array (
-                'id' => '37',
+                'id' => 37,
                 'name' => 'admin.profile.password.save',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -117,7 +117,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             12 => 
             array (
-                'id' => '38',
+                'id' => 38,
                 'name' => 'admin.password',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -125,7 +125,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             13 => 
             array (
-                'id' => '39',
+                'id' => 39,
                 'name' => 'admin.password.save',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -133,7 +133,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             14 => 
             array (
-                'id' => '40',
+                'id' => 40,
                 'name' => 'admin.kriteria',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -141,7 +141,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             15 => 
             array (
-                'id' => '43',
+                'id' => 43,
                 'name' => 'admin.kriteria.insert',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -149,7 +149,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             16 => 
             array (
-                'id' => '44',
+                'id' => 44,
                 'name' => 'admin.kriteria.update',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -157,7 +157,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             17 => 
             array (
-                'id' => '45',
+                'id' => 45,
                 'name' => 'admin.kriteria.delete',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -165,7 +165,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             18 => 
             array (
-                'id' => '46',
+                'id' => 46,
                 'name' => 'admin.penduduk',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -173,7 +173,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             19 => 
             array (
-                'id' => '51',
+                'id' => 51,
                 'name' => 'admin.penduduk.insert',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -181,7 +181,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             20 => 
             array (
-                'id' => '52',
+                'id' => 52,
                 'name' => 'admin.penduduk.update',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -189,7 +189,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             21 => 
             array (
-                'id' => '53',
+                'id' => 53,
                 'name' => 'admin.penduduk.set_status',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -197,7 +197,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             22 => 
             array (
-                'id' => '54',
+                'id' => 54,
                 'name' => 'admin.penduduk.delete',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -205,7 +205,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             23 => 
             array (
-                'id' => '55',
+                'id' => 55,
                 'name' => 'admin.import.kriteria',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -213,7 +213,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             24 => 
             array (
-                'id' => '58',
+                'id' => 58,
                 'name' => 'admin.import.kriteria.insert',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -221,7 +221,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             25 => 
             array (
-                'id' => '59',
+                'id' => 59,
                 'name' => 'admin.import.kriteria.update',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -229,7 +229,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             26 => 
             array (
-                'id' => '60',
+                'id' => 60,
                 'name' => 'admin.import.kriteria.delete',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -237,7 +237,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             27 => 
             array (
-                'id' => '61',
+                'id' => 61,
                 'name' => 'admin.import.penduduk',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -245,7 +245,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             28 => 
             array (
-                'id' => '64',
+                'id' => 64,
                 'name' => 'admin.import.penduduk.insert',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -253,7 +253,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             29 => 
             array (
-                'id' => '65',
+                'id' => 65,
                 'name' => 'admin.import.penduduk.update',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',
@@ -261,7 +261,7 @@ class PPermissionsTableSeeder extends Seeder
             ),
             30 => 
             array (
-                'id' => '66',
+                'id' => 66,
                 'name' => 'admin.import.penduduk.delete',
                 'guard_name' => 'web',
                 'created_at' => '2023-05-30 01:43:13',

@@ -30,6 +30,7 @@ use App\Http\Controllers\Admin\CalonNilaiController;
 use App\Http\Controllers\Admin\Import\KecamatanController as ImportKecamatanController;
 use App\Http\Controllers\Admin\Import\CalonController as ImportCalonController;
 use App\Http\Controllers\Admin\Import\TahapanController as ImportTahapanController;
+use App\Http\Controllers\Admin\PerbandinganController;
 use App\Http\Controllers\Admin\PerhitunganController;
 
 // ====================================================================================================================
@@ -246,6 +247,13 @@ Route::prefix($prefix)->group(function () use ($name, $prefix) {
 $prefix = 'perhitungan';
 Route::controller(PerhitunganController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
     $name = "$name.$prefix"; // admin.calon.perhitungan
+    Route::get('/', 'index')->name($name)->middleware("permission:$name");
+    Route::post('/pengumuman', 'pengumuman')->name("$name.pengumuman")->middleware("permission:$name");
+});
+
+$prefix = 'perbandingan';
+Route::controller(PerbandinganController::class)->prefix($prefix)->group(function () use ($name, $prefix) {
+    $name = "$name.$prefix"; // admin.calon.perbandingan
     Route::get('/', 'index')->name($name)->middleware("permission:$name");
     Route::post('/pengumuman', 'pengumuman')->name("$name.pengumuman")->middleware("permission:$name");
 });
