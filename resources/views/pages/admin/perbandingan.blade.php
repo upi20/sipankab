@@ -71,9 +71,9 @@
                             <h5 class="text-white">Setelah melakukan perbandingan menggunakan metode Mean Square Error(MSE),
                                 kemudian hasilnya
                                 @if ($deviasi['saw'] > $deviasi['saw'])
-                                    Metode <b>Simple Additive Aeighting (SAW)</b> Lebih baik dari Metode Weight Product (WP)
-                                @elseif ($deviasi['wp'] > $deviasi['saw'])
                                     Metode <b>Metode Weight Product (WP)</b> Lebih baik dari Simple Additive Aeighting (SAW)
+                                @elseif ($deviasi['wp'] > $deviasi['saw'])
+                                    Metode <b>Simple Additive Aeighting (SAW)</b> Lebih baik dari Metode Weight Product (WP)
                                 @else
                                     seri kedua metode tersebut sama baiknya
                                 @endif
